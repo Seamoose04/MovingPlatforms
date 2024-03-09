@@ -57,26 +57,14 @@ class MovingPlatform {
             while (tiles.tileImageAtLocation(tiles.getTileLocation(col, y)) !== platform_image) {
                 console.log(col);
                 col++;
-                if (col > 32) {
-                    console.log("issue1");
-                    return null;
-                }
             }
             let width = 0;
             while (tiles.tileImageAtLocation(tiles.getTileLocation(col, y)) == platform_image) {
                 width++;
                 col++;
-                if (col > 32) {
-                    console.log("issue2");
-                    return null;
-                }
             }
             while (tiles.tileImageAtLocation(tiles.getTileLocation(col, y)) !== end_image) {
                 col++;
-                if (col > 32) {
-                    console.log("issue3");
-                    return null;
-                }
             }
             let xMax = col;
             tiles.setTileAt(tiles.getTileLocation(col, location.row), background_image);
@@ -88,7 +76,9 @@ class MovingPlatform {
 }
 
 game.onUpdateInterval(300, function() {
-    platforms.forEach(function(platform: MovingPlatform, index: number) {
-        platform.update();
-    });
+    if (platforms.length > 0) {
+        platforms.forEach(function(platform: MovingPlatform, index: number) {
+            platform.update();
+        });
+    }
 });
