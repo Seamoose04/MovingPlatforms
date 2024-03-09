@@ -84,7 +84,6 @@ class MovingPlatform {
             tiles.setTileAt(location, background_image);
             platforms.push(new MovingPlatform(xMin, xMax, width, y, platform_image, background_image));
         });
-
     }
 }
 
