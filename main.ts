@@ -76,9 +76,7 @@ class MovingPlatform {
 }
 
 game.onUpdateInterval(300, function() {
-    if (platforms.length > 0) {
-        platforms.forEach(function(platform: MovingPlatform, index: number) {
-            platform.update();
-        });
+    for (let i = 0; i < platforms.length; i++) {
+        platforms[i].update();
     }
 });
