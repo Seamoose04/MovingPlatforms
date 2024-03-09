@@ -1,5 +1,4 @@
-let platforms: MovingPlatform[] = [];
-
+let platforms: MovingPlatform[] = []
 class MovingPlatform {
     xMin: number;
     xMax: number;
@@ -74,9 +73,8 @@ class MovingPlatform {
         });
     }
 }
-
-game.onUpdateInterval(300, function() {
-    for (let i = 0; i < platforms.length; i++) {
+game.onUpdateInterval(300, function () {
+    for (let i = 0; i <= platforms.length - 1; i++) {
         platforms[i].update();
     }
-});
+})
