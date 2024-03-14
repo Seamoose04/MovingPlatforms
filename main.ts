@@ -1,21 +1,36 @@
-let platforms: MovingPlatform[] = []
-class MovingPlatform {
+let platforms: Platform[] = [];
+class Platform {
+    width: number;
+    platform_image: Image;
+    background_image: Image;
+    constructor(_width: number, _platform_image: Image, _background_image: Image) {
+        this.width = _width;
+        this.platform_image = _platform_image;
+        this.background_image = _background_image;
+    }
+
+    /**
+        * Automatically creates platforms from your tilemap for future use.
+        * @param platform_image The tile image of your platforms.
+        * @param background_image The tile image of your background.
+        * @param start_image Unused
+        * @param end_image Unused
+    */
+    static fromScene(platform_image: Image, background_image: Image, start_image?: Image, end_image?: Image) {
+        
+    }
+}
+class MovingPlatform extends Platform {
     xMin: number;
     xMax: number;
-    width: number;
     y: number;
     lead: number;
     dir: number = 1;
-    platform_image: Image;
-    background_image: Image;
     constructor(_xMin: number, _xMax: number, _width: number, _y: number, _platform_image: Image, _background_image: Image) {
+        super(_width, _platform_image, _background_image);
         this.xMin = _xMin;
         this.xMax = _xMax;
-        this.width = _width;
         this.y = _y;
-
-        this.platform_image = _platform_image;
-        this.background_image = _background_image;
 
         this.lead = this.xMin + this.width;
 
@@ -24,7 +39,6 @@ class MovingPlatform {
             tiles.setWallAt(tiles.getTileLocation(j, this.y), true);
         }
     }
-
     update(): void {
         tiles.setTileAt(tiles.getTileLocation(this.lead, this.y), this.platform_image);
         tiles.setWallAt(tiles.getTileLocation(this.lead, this.y), true);
@@ -43,7 +57,7 @@ class MovingPlatform {
             this.lead = this.xMax - this.width;
         }
     }
-    static fromCurrentTilemap(platform_image: Image, start_image: Image, end_image: Image, background_image: Image) {
+    static fromScene(platform_image: Image, background_image: Image, start_image: Image, end_image: Image) {
         let pTileX = 0;
         let platform_tiles = tiles.getTilesByType(platform_image);
         let start_tiles = tiles.getTilesByType(start_image);
@@ -53,11 +67,10 @@ class MovingPlatform {
             let col = location.col;
             let xMin = col;
             let y = location.row;
+            let width = 0;
             while (tiles.tileImageAtLocation(tiles.getTileLocation(col, y)) !== platform_image) {
-                console.log(col);
                 col++;
             }
-            let width = 0;
             while (tiles.tileImageAtLocation(tiles.getTileLocation(col, y)) == platform_image) {
                 width++;
                 col++;
@@ -67,14 +80,16 @@ class MovingPlatform {
             }
             let xMax = col;
             tiles.setTileAt(tiles.getTileLocation(col, location.row), background_image);
-
             tiles.setTileAt(location, background_image);
+
             platforms.push(new MovingPlatform(xMin, xMax, width, y, platform_image, background_image));
         });
     }
 }
 game.onUpdateInterval(300, function () {
-    for (let i = 0; i <= platforms.length - 1; i++) {
-        platforms[i].update();
-    }
-})
+    platforms.forEach(function(platform: Platform, index: number) {
+        if (platform instanceof MovingPlatform) {
+            platform.update();
+        }
+    });
+});
