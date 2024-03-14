@@ -57,6 +57,13 @@ class MovingPlatform extends Platform {
             this.lead = this.xMax - this.width;
         }
     }
+    /**
+        * Automatically creates moving platforms from your tilemap for future use.
+        * @param platform_image The tile image of your platforms.
+        * @param background_image The tile image of your background.
+        * @param start_image The tile representing the left boundary of the platform movement.
+        * @param end_image The tile representing the rightmost boundary of the platform movement.
+    */
     static fromScene(platform_image: Image, background_image: Image, start_image: Image, end_image: Image) {
         let pTileX = 0;
         let platform_tiles = tiles.getTilesByType(platform_image);
