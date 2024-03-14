@@ -95,9 +95,10 @@ class MovingPlatform extends Platform {
 }
 
 game.onUpdateInterval(300, function () {
-    platforms.forEach((platform) => {
+    for (let i = 0; i < platforms.length; i++) {
+        let platform: Platform = platforms[i];
         if (platform instanceof MovingPlatform) {
             platform.update();
         }
-    });
+    }
 });
