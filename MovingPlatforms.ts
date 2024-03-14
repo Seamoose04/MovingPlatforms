@@ -10,7 +10,7 @@ namespace Platforms {
         MovingPlatform.fromScene(platform_image, start_image, end_image, background_image);
     }
 
-    export function generatePlatformWalls(platform_image: Image) {
+    // export function generatePlatformWalls(platform_image: Image) {
         
-    }
+    // }
 }
