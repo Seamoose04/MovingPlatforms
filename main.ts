@@ -96,6 +96,7 @@ class MovingPlatform extends Platform {
 
 game.onUpdateInterval(300, function () {
     for (let i = 0; i < platforms.length; i++) {
+        console.log(typeof platforms[i]);
         if (platforms[i] instanceof MovingPlatform) {
             let platform: MovingPlatform = platforms[i] as MovingPlatform;
             platform.update();
