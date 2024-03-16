@@ -1,4 +1,4 @@
-let platforms: Platform[] = [];
+let platforms: MovingPlatform[] = [];
 class Platform {
     width: number;
     platform_image: Image;
@@ -95,12 +95,11 @@ class MovingPlatform extends Platform {
 }
 
 game.onUpdateInterval(300, function () {
-    console.log(platforms.length);
     for (let i = 0; i < platforms.length; i++) {
         console.log(typeof platforms[i]);
-        if (platforms[i] instanceof MovingPlatform) {
-            let platform: MovingPlatform = platforms[i] as MovingPlatform;
-            platform.update();
-        }
+        // if (platforms[i] instanceof MovingPlatform) {
+            // let platform: MovingPlatform = platforms[i] as MovingPlatform;
+            platforms[i].update();
+        // }
     }
 });
